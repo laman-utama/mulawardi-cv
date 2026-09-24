@@ -1,1 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Profesional - Mulawardi M.</title>
+    <!-- Font Inter untuk tampilan modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1e293b;      /* Slate Dark Blue */
+            --accent: #c2410c;       /* Burnt Orange Elegant */
+            --bg-body: #f8fafc;      /* Very Light Gray */
+            --text-main: #334155;    /* Slate Gray */
+            --text-light: #64748b;   /* Lighter Gray */
+            --white: #ffffff;
+            --border: #e2e8f0;
+        }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            font-size: 14.5px; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- HEADER MODERN --- */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0f172a 100%);
+            color: var(--white);
+            padding: 50px 20px;
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 800px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .header-text h1 {
+            font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px;
+            margin-bottom: 8px; color: #fff;
+        }
+
+        .contact-info { display: flex; flex-direction: column; gap: 6px; margin-top: 15px; }
+        .contact-info div { 
+            font-size: 0.9rem; color: #cbd5e1; display: flex; align-items: center; gap: 10px; 
+        }
+        .contact-info i { color: var(--accent); width: 16px; text-align: center; }
+
+        .profile-wrapper {
+            width: 130px; height: 130px; position: relative;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .hex-bg {
+            position: absolute; inset: 0;
+            background: rgba(255,255,255,0.05);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .profile-img {
+            width: 110px; height: 110px; object-fit: cover;
+            border-radius: 50%; border: 3px solid rgba(255,255,255,0.2);
+            z-index: 2;
+        }
+
+        /* --- CONTAINER & ACCORDION --- */
+        .container { max-width: 750px; margin: -30px auto 50px; padding: 0 20px; position: relative; z-index: 10; }
+
+        .accordion-btn {
+            background: var(--white);
+            color: var(--primary);
+            cursor: pointer;
+            padding: 18px 24px;
+            width: 100%;
+            border: 1px solid var(--border);
+            border-bottom: none;
+            text-align: left;
+            outline: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .accordion-btn:first-child { border-radius: 12px 12px 0 0; }
+        .accordion-btn:last-of-type { border-bottom: 1px solid var(--border); border-radius: 0 0 12px 12px; }
+        
+        .accordion-btn:hover { background: #f1f5f9; }
+        
+        .accordion-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .btn-label { display: flex; align-items: center; gap: 12px; }
+        .btn-label i { width: 20px; text-align: center; font-size: 1rem; opacity: 0.8; }
+        .toggle-icon { font-size: 0.8rem; transition: transform 0.3s; opacity: 0.6; }
+        .accordion-btn.active .toggle-icon { transform: rotate(45deg); opacity: 1; }
+
+        /* --- PANEL CONTENT --- */
+        .panel {
+            background: var(--white);
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+        
+        .panel.show { padding: 24px; max-height: 800px; border-bottom: 1px solid var(--border); }
+
+        /* Styling Isi Konten */
+        p { color: var(--text-main); margin-bottom: 10px; }
+        
+        .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .edu-item h3 { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 2px; }
+        .edu-item p { font-size: 0.85rem; color: var(--text-light); margin: 0; }
+        .edu-year { font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-top: 4px; display: block; }
+
+        .timeline { border-left: 2px solid var(--border); padding-left: 20px; margin-top: 10px; }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -26px; top: 6px;
+            width: 10px; height: 10px; background: var(--accent);
+            border-radius: 50%; border: 2px solid var(--white);
+            box-shadow: 0 0 0 2px var(--border);
+        }
+        .job-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 5px; }
+        .company-name { font-weight: 600; font-size: 0.95rem; color: var(--primary); }
+        .job-date { font-size: 0.8rem; color: var(--text-light); font-style: italic; }
+        .job-desc { font-size: 0.9rem; color: var(--text-main); margin-top: 4px; }
+
+        .skills-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .skill-row { display: flex; align-items: center; margin-bottom: 14px; }
+        .skill-name { width: 100px; font-size: 0.85rem; font-weight: 500; }
+        .bar-bg { flex-grow: 1; height: 6px; background: #f1f5f9; margin: 0 12px; border-radius: 3px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--primary); border-radius: 3px; }
+        .stars { color: var(--accent); font-size: 0.7rem; letter-spacing: 1px; }
+        
+        .skill-list ul { list-style: none; }
+        .skill-list li { 
+            font-size: 0.9rem; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; color: var(--text-main); 
+        }
+        .skill-list li::before { content: '•'; color: var(--accent); font-size: 1.2rem; line-height: 0; }
+
+        /* --- ACTION BUTTONS AREA --- */
+        .actions-area { 
+            margin-top: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            align-items: center; 
+        }
+
+        .btn-action {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px 28px; border-radius: 8px;
+            font-weight: 600; font-size: 0.9rem;
+            text-decoration: none; transition: all 0.3s;
+            width: 100%; max-width: 320px;
+            border: none; cursor: pointer;
+        }
+
+        .btn-portfolio {
+            background: var(--accent); color: white;
+            box-shadow: 0 4px 15px rgba(194, 65, 12, 0.2);
+        }
+        .btn-portfolio:hover { 
+            background: #9a3412; transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(194, 65, 12, 0.3);
+        }
+
+        .btn-download-cv {
+            background: var(--white); color: var(--primary);
+            border: 2px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .btn-download-cv:hover { 
+            border-color: var(--primary); background: #f8fafc;
+            transform: translateY(-2px);
+        }
+
+        footer { text-align: center; padding: 30px; font-size: 0.75rem; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; }
+
+        @media (max-width: 600px) {
+            .header-content { flex-direction: column-reverse; text-align: center; gap: 20px; }
+            .contact-info { align-items: center; }
+            .edu-grid, .skills-wrap { grid-template-columns: 1fr; }
+            .job-header { flex-direction: column; gap: 2px; }
+            .btn-action { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="header-text">
+                <h1>MULAWARDI M.</h1>
+                <div class="contact-info">
+                    <div><i class="fas fa-phone"></i> 0859-7515-3455</div>
+                    <div><i class="fas fa-envelope"></i> mulawardimustafa23@gmail.com</div>
+                </div>
+            </div>
+            <div class="profile-wrapper">
+                <img src="foto-profil.jpg" alt="Mulawardi M." class="profile-img">
+                <div class="hex-bg"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- SUMMARY -->
+        <button class="accordion-btn">
+            <span class="btn-label"><i class="fas fa-user-tie"></i> SUMMARY</span>
+            <i class="fas fa-plus toggle-icon"></i>
+        </button>
+        <div class="panel">
+            <p>Desain grafis berpengalaman di bidang percetakan, kemampuan dalam pembuatan materi visual untuk kebutuhan digital maupun cetak. Berpengalaman bekerja dengan tim kreatif untuk menghasilkan konten visual yang menarik, inovatif, dan tepat sesuai kebutuhan klien.</p>
+        </div>
+
+        <!-- PENDIDIKAN -->
+        <button class="accordion-btn">
+            <span class="btn-label"><i class="fas fa-graduation-cap"></i> PENDIDIKAN</span>
+            <i class="fas fa-plus toggle-icon"></i>
+        </button>
+        <div class="panel">
+            <div class="edu-grid">
+                <div class="edu-item">
+                    <h3>D1 Komputer Grafika</h3>
+                    <p>AKMI Dipanegara</p>
+                    <span class="edu-year">2003</span>
+                </div>
+                <div class="edu-item">
+                    <h3>D3 Teknik Informatika</h3>
+                    <p>AKMI Dipanegara</p>
+                    <span class="edu-year">2007</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PENGALAMAN KERJA -->
+        <button class="accordion-btn">
+            <span class="btn-label"><i class="fas fa-briefcase"></i> PENGALAMAN KERJA</span>
+            <i class="fas fa-plus toggle-icon"></i>
+        </button>
+        <div class="panel">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <span class="company-name">CV. ILNA Komputer</span>
+                        <span class="job-date">Makassar, 2008-2012</span>
+                    </div>
+                    <p class="job-desc">Operator komputer setting lay out/desain grafis</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <span class="company-name">CV. HIDAYAT KARYA</span>
+                        <span class="job-date">Makassar, 2013-2016</span>
+                    </div>
+                    <p class="job-desc">Operator komputer setting lay out/desain grafis</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="job-header">
+                        <span class="company-name">CV. ROXY ADV.</span>
+                        <span class="job-date">Makassar, 2018-2023</span>
+                    </div>
+                    <p class="job-desc">Operator komputer setting lay out/desain grafis dan Operator mesin cutting sticker</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- KEAHLIAN -->
+        <button class="accordion-btn">
+            <span class="btn-label"><i class="fas fa-chart-simple"></i> KEAHLIAN</span>
+            <i class="fas fa-plus toggle-icon"></i>
+        </button>
+        <div class="panel">
+            <div class="skills-wrap">
+                <div class="skill-bars">
+                    <div class="skill-row">
+                        <span class="skill-name">CorelDraw</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 95%"></div></div>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                    <div class="skill-row">
+                        <span class="skill-name">PhotoShop</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 85%"></div></div>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                    </div>
+                </div>
+                <div class="skill-list">
+                    <ul>
+                        <li>Microsoft Office</li>
+                        <li>Adobe Illustrator</li>
+                        <li>Operator Mesin Cutting</li>
+                        <li>Setting Layout Percetakan</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- AREA TOMBOL AKSI -->
+            <div class="actions-area">
+                <a href="portofolio.html" class="btn-action btn-portfolio">
+                    <i class="fas fa-images"></i> Lihat Koleksi Portofolio
+                </a>
+                
+                <!-- TOMBOL DOWNLOAD CV PDF BARU -->
+                <!-- GANTI HREF DENGAN NAMA FILE PDF ANDA DI GITHUB -->
+                <a href="cv-mulawardi.pdf" class="btn-action btn-download-cv" download>
+                    <i class="fas fa-file-pdf"></i> Download CV Lengkap (PDF)
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>PROFESSIONAL DESIGN PORTFOLIO &copy; 2026</footer>
+
+    <script>
+        const accordions = document.querySelectorAll('.accordion-btn');
+        accordions.forEach(acc => {
+            acc.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const icon = this.querySelector('.toggle-icon');
+                if(this.classList.contains('active')){
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-plus');
+                }
+
+                const panel = this.nextElementSibling;
+                if (panel.classList.contains('show')) {
+                    panel.classList.remove('show');
+                } else {
+                    accordions.forEach(other => {
+                        if(other !== this && other.classList.contains('active')){
+                            other.classList.remove('active');
+                            other.querySelector('.toggle-icon').classList.remove('fa-times');
+                            other.querySelector('.toggle-icon').classList.add('fa-plus');
+                            other.nextElementSibling.classList.remove('show');
+                        }
+                    });
+                    panel.classList.add('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
